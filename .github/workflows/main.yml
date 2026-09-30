@@ -1,9 +1,9 @@
 name: Security CI Checks
 
-on: 
-push: 
-  branches:
-  - main
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   sast_scan:
@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@v0.36.0
         env:
@@ -22,6 +23,7 @@ jobs:
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL'
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
